@@ -1,0 +1,26 @@
+---
+driver_plugin: vagrant
+driver_config:
+  require_chef_omnibus: true
+
+platforms:
+- name: ubuntu-12.04
+  driver_config:
+    box: opscode-ubuntu-12.04
+    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box
+    customize:
+      memory: 2048
+    network:
+    - ["forwarded_port", {guest: 8080, host: 8080}]
+
+suites:
+- name: default
+  run_list:
+  - recipe[apt]
+  - recipe[marathon]
+  attributes:
+    marathon:
+      options:
+        http_port: 8080
+    mesos:
+      version: '0.14.0'

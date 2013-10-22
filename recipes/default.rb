@@ -27,30 +27,30 @@ link '/usr/lib/libmesos.so' do
 end
 
 directory node['marathon']['home_dir'] do
-  owner 'root'
-  group 'root'
+  owner node['marathon']['user']
+  group node['marathon']['group']
   mode 00755
   recursive true
   action :create
 end
 
 directory "#{node['marathon']['home_dir']}/environment" do
-  owner 'root'
-  group 'root'
+  owner node['marathon']['user']
+  group node['marathon']['group']
   mode 00755
   action :create
 end
 
 directory node['marathon']['config_dir'] do
-  owner 'root'
-  group 'root'
+  owner node['marathon']['user']
+  group node['marathon']['group']
   mode 00755
   action :create
 end
 
 directory node['marathon']['log_dir'] do
-  owner 'root'
-  group 'root'
+  owner node['marathon']['user']
+  group node['marathon']['group']
   mode 00755
   action :create
 end
@@ -121,10 +121,18 @@ else
   end
 end
 
+if node.attribute?('ec2')
+  hostname = "--hostname #{node['ec2']['public_hostname']}"
+else
+  hostname = "--hostname #{node['ipaddress']}"
+end
+
+command_line_options_array << hostname
+
 template "#{node['marathon']['config_dir']}/marathon.conf" do
   source 'marathon.conf.erb'
-  owner 'root'
-  group 'root'
+  owner node['marathon']['user']
+  group node['marathon']['group']
   mode 00755
   variables(
     :command_line_options => command_line_options_array.join(' ')

@@ -20,15 +20,7 @@ suites:
   - recipe[marathon]
   attributes:
     marathon:
-      zookeeper_server_list: [ 'zk-sandbox.imedidata.net' ]
-      zookeeper_port: 2181
-      zookeeper_path: 'mesos-test'
-      #zookeeper_exhibitor_discovery: true
-      #zookeeper_exhibitor_url: 'http://zk-sandbox.imedidata.net:8080'
       options:
-        ha: true
-        http_credentials: 'admin:secret'
-        zk_state: '/marathon-test'
         http_port: 8080
     mesos:
       version: '0.14.0'

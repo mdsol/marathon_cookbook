@@ -21,7 +21,7 @@ The following cookbooks are dependencies:
 * apt
 * java
 * runit (process management)
-* mesos (used for installing the mesos libs)
+* mesosphere_mesos (used for installing the Mesos libraries)
 * zookeeper (used for discovering zookeeper ensembles via [Netflix Exhibitor][])
 
 ## Platform:

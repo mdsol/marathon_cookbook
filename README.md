@@ -1,7 +1,8 @@
 Description
 ===========
 
-Application cookbook for installing [Mesosphere][]'s [Marathon][]
+Application cookbook for installing [Mesosphere][]'s [Marathon][].
+[Marathon][] is an [Apache Mesos][] framework for long-running services.
 
 
 Requirements
@@ -12,6 +13,8 @@ Chef 11.4.0+
 This cookbook also assumes you will be running a zookeeper cluster for
 production use of Mesos and Marathon.  If you omit zookeeper attributes the 
 cookbook does default to the internal Marathon zookeeper for test scenarios.
+
+This cookbook also depends on the [mesosphere_mesos][] cookbook.
 
 The following cookbooks are dependencies:
 
@@ -153,6 +156,7 @@ run_list:
 ```
 
 [Mesosphere]: http://mesosphere.io
+[mesosphere_mesos]: https://github.com/mdsol/mesos_cookbook
 [marathon]: http://nerds.airbnb.com/introducing-marathon
 [Apache Mesos]: http://http://mesos.apache.org
 [configuring marathon]: https://github.com/airbnb/marathon/blob/master/config/README.md

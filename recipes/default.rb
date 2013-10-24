@@ -20,7 +20,7 @@
 include_recipe 'apt'
 include_recipe 'java'
 include_recipe 'runit'
-include_recipe 'mesos::install'
+include_recipe 'mesosphere_mesos::install'
 
 link '/usr/lib/libmesos.so' do
   to '/usr/local/lib/libmesos.so'

@@ -2,4 +2,4 @@ site :opscode
 
 metadata
 
-cookbook 'mesos', path: '/Users/rarodriguez/projects/cookbooks/mesos_cookbook'
+cookbook 'mesosphere_mesos', path: '/Users/rarodriguez/projects/cookbooks/mesos_cookbook'

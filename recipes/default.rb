@@ -137,7 +137,7 @@ template "#{node['marathon']['config_dir']}/marathon.conf" do
   variables(
     :command_line_options => command_line_options_array.join(' ')
   )
-  notifies :restart, "runit_service[marathon]", :delayed
+  notifies :restart, 'runit_service[marathon]', :delayed
 end
 
 runit_service 'marathon'

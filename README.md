@@ -62,7 +62,7 @@ mesos in seconds (default: 1 week) (default = 604800).
 election. Allows starting an arbitrary number of other Marathons but all need 
 to be started in HA mode. This mode requires running ZooKeeper.
 * `node['marathon']['options']['hostname']` - The advertised hostname stored in 
-ZooKeepe so another standby host can redirect to this elected leader 
+ZooKeeper so another standby host can redirect to this elected leader 
 (default = localhost).
 * `node['marathon']['options']['http_credentials']` - Credentials for accessing 
 the http service.  If empty, anyone can access the HTTP endpoint. A 

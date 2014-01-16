@@ -28,7 +28,7 @@ app_options=( $cmd )
 function start {
   echo "$(date): $(env)"
   echo "$(date) [ulimit] $(ulimit -n)"
-  exec chpst -u <%= node['chronos']['user'] %> -e $environment_directory java "${jvm_options[@]}" "$main" "${app_options[@]}" 2>&1
+  exec chpst -u <%= node['marathon']['user'] %> -e $environment_directory java "${jvm_options[@]}" "$main" "${app_options[@]}" 2>&1
 }
 
 start

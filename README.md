@@ -14,14 +14,14 @@ This cookbook also assumes you will be running a zookeeper cluster for
 production use of Mesos and Marathon.  If you omit zookeeper attributes the 
 cookbook does default to the internal Marathon zookeeper for test scenarios.
 
-This cookbook also depends on the [mesosphere_mesos][] cookbook.
+This cookbook also depends on the [mesos][] cookbook.
 
 The following cookbooks are dependencies:
 
 * apt
 * java
 * runit (process management)
-* mesosphere_mesos (used for installing the Mesos libraries)
+* mesos (used for installing the Mesos libraries)
 * zookeeper (used for discovering zookeeper ensembles via [Netflix Exhibitor][])
 
 ## Platform:
@@ -128,7 +128,7 @@ override_attributes:
   marathon:
     jar_source: 'JAR_SOURCE_URL_HERE'
   mesos:
-    version: 0.14.0-rc4
+    version: 0.15.0
 run_list:
   recipe[marathon]
 ```
@@ -150,7 +150,7 @@ override_attributes:
     zookeeper_port: 2181
     zookeeper_path: 'mesos'
   mesos:
-    version: 0.14.0-rc4
+    version: 0.15.0
 run_list:
   recipe[marathon]
 ```
@@ -172,13 +172,13 @@ override_attributes:
     zookeeper_exhibitor_discovery: true
     zookeeper_exhibitor_url: 'http://zk-exhibitor-endpoint.example.com:8080'
   mesos:
-    version: 0.14.0-rc4
+    version: 0.15.0
 run_list:
   recipe[marathon]
 ```
 
 [Mesosphere]: http://mesosphere.io
-[mesosphere_mesos]: https://github.com/mdsol/mesos_cookbook
+[mesos]: https://github.com/mdsol/mesos_cookbook
 [marathon]: http://nerds.airbnb.com/introducing-marathon
 [Apache Mesos]: http://http://mesos.apache.org
 [configuring marathon]: https://github.com/airbnb/marathon/blob/master/config/README.md
@@ -196,6 +196,7 @@ run_list:
 ## License and Author
 
 * Author: [Ray Rodriguez](https://github.com/rayrod2030)
+* Contributor: [Mark Corwin](https://github.com/mjcdiggity)
 
 Copyright 2013 Medidata Solutions Worldwide
 

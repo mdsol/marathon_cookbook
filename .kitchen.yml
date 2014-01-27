@@ -23,4 +23,4 @@ suites:
       options:
         http_port: 8080
     mesos:
-      version: '0.14.0'
+      version: '0.15.0'

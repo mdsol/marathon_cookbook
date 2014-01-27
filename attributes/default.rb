@@ -1,7 +1,7 @@
 default['marathon']['home_dir']                           = '/opt/marathon'
 default['marathon']['config_dir']                         = '/etc/marathon'
 default['marathon']['log_dir']                            = '/var/log/marathon'
-default['marathon']['jar_source']                         = 'http://downloads.mesosphere.io/marathon/marathon-0.0.6-SNAPSHOT-jar-with-dependencies.jar'
+default['marathon']['jar_source']                         = 'https://s3.amazonaws.com/dl.imedidata.net/marathon/marathon-0.4.1-SNAPSHOT-jar-with-dependencies.jar'
 default['marathon']['user']                               = 'root'
 default['marathon']['group']                              = 'root'
 default['marathon']['java_heap']                          = "#{(node['memory']['total'].to_i - (node['memory']['total'].to_i / 2)) / 1024}m"

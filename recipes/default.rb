@@ -27,30 +27,30 @@ link '/usr/lib/libmesos.so' do
 end
 
 directory node['marathon']['home_dir'] do
-  owner 'root'
-  group 'root'
+  owner node['marathon']['user']
+  group node['marathon']['group']
   mode 00755
   recursive true
   action :create
 end
 
 directory "#{node['marathon']['home_dir']}/environment" do
-  owner 'root'
-  group 'root'
+  owner node['marathon']['user']
+  group node['marathon']['group']
   mode 00755
   action :create
 end
 
 directory node['marathon']['config_dir'] do
-  owner 'root'
-  group 'root'
+  owner node['marathon']['user']
+  group node['marathon']['group']
   mode 00755
   action :create
 end
 
 directory node['marathon']['log_dir'] do
-  owner 'root'
-  group 'root'
+  owner node['marathon']['user']
+  group node['marathon']['group']
   mode 00755
   action :create
 end
@@ -79,6 +79,8 @@ end
 zk_server_list = []
 zk_port = nil
 zk_path = nil
+zk_master_option = nil
+zk_hosts_option = nil
 
 if node['marathon']['zookeeper_server_list'].count > 0
   zk_server_list = node['marathon']['zookeeper_server_list']
@@ -107,20 +109,35 @@ end
 
 # If we have been able to find zookeeper master endpoint and zookeeper hosts
 # then set the command line options we'll be passing to runit
-if !zk_master_option.empty? && !zk_hosts_option.empty?
+if !zk_master_option.nil? && !zk_hosts_option.nil?
   command_line_options_array << zk_master_option
   command_line_options_array << zk_hosts_option
+else
+  # if we don't have a user set master or a zk configured master
+  # default to local mode.
+  if node['marathon']['options']['master'].nil?
+    node.override['marathon']['options']['master'] = 'local'
+    command_line_options_array << '--master local'
+  end
 end
+
+if node.attribute?('ec2')
+  hostname = "--hostname #{node['ec2']['public_hostname']}"
+else
+  hostname = "--hostname #{node['ipaddress']}"
+end
+
+command_line_options_array << hostname
 
 template "#{node['marathon']['config_dir']}/marathon.conf" do
   source 'marathon.conf.erb'
-  owner 'root'
-  group 'root'
+  owner node['marathon']['user']
+  group node['marathon']['group']
   mode 00755
   variables(
     :command_line_options => command_line_options_array.join(' ')
   )
-  notifies :restart, "runit_service[marathon]", :delayed
+  notifies :restart, 'runit_service[marathon]', :delayed
 end
 
 runit_service 'marathon'

@@ -8,12 +8,6 @@ heap=<%= node['marathon']['java_heap'] %>
 environment_directory=<%= "#{node['marathon']['home_dir']}/environment" %>
 config_file=<%= "#{node['marathon']['config_dir']}/marathon.conf" %>
 
-<% if node.attribute?('ec2') %>
-public_hostname=$(curl http://169.254.169.254/latest/meta-data/public-hostname)
-<% else %>
-public_hostname='localhost'
-<% end %>
-
 ip=$(ifconfig | grep inet | grep -v inet6 | grep -v '127.0.0.1' | awk -F: '{ print $2 }' | awk '{ print $1 }')
 
 # Setup the libprocess ip
@@ -34,7 +28,7 @@ app_options=( $cmd )
 function start {
   echo "$(date): $(env)"
   echo "$(date) [ulimit] $(ulimit -n)"
-  exec chpst -u root -e $environment_directory java "${jvm_options[@]}" "$main" "${app_options[@]}" 2>&1
+  exec chpst -u <%= node['marathon']['user'] %> -e $environment_directory java "${jvm_options[@]}" "$main" "${app_options[@]}" 2>&1
 }
 
 start

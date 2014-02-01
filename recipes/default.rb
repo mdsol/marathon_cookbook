@@ -16,6 +16,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+class ::Chef::Recipe
+  include ::Marathon
+end
 
 include_recipe 'apt'
 include_recipe 'java'
@@ -89,7 +92,11 @@ if node['marathon']['zookeeper_server_list'].count > 0
 end
 
 if node['marathon']['zookeeper_exhibitor_discovery'] && !node['marathon']['zookeeper_exhibitor_url'].nil?
-  zk_nodes = discover_zookeepers(node['marathon']['zookeeper_exhibitor_url'])
+  zk_nodes = discover_zookeepers_with_retry(node['marathon']['zookeeper_exhibitor_url'])
+
+  if zk_nodes.nil?
+    Chef::Application.fatal!('Failed to discover zookeepers.  Cannot continue')
+  end
 
   zk_server_list = zk_nodes['servers']
   zk_port = zk_nodes['port']

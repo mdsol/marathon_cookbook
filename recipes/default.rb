@@ -142,7 +142,7 @@ template "#{node['marathon']['config_dir']}/marathon.conf" do
   group node['marathon']['group']
   mode 00755
   variables(
-    :command_line_options => command_line_options_array.join(' ')
+    command_line_options: command_line_options_array.join(' '),
   )
   notifies :restart, 'runit_service[marathon]', :delayed
 end

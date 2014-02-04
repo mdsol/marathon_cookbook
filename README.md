@@ -1,3 +1,7 @@
+Marathon Cookbook
+=================
+[![Build Status](https://secure.travis-ci.org/mdsol/marathon_cookbook.png?branch=master)](http://travis-ci.org/mdsol/marathon_cookbook)
+
 Description
 ===========
 

@@ -1,3 +1,9 @@
+## 1.0.1 / 2014-02-03
+
+### New features
+
+* Add retry logic for exhibitor discover zookeepers method ([@rayrod2030][])
+
 ## 1.0.0 / 2014-01-27
 
 ### New features

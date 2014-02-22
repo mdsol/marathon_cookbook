@@ -197,10 +197,12 @@ allocation changes result in a marathon stop / start.
 ```
 test_app = {
   id: 'test_app',
+  command: '/usr/local/bin/test_app -foo bar',
   instances: 3,
   cpus: 0.25,
   mem: 125,
-  command: '/usr/local/bin/test_app -foo bar'
+  env: { foo: 'bar' },
+  constraint: [ 'hostname:UNIQUE', 'rack:GROUP_BY' ]
 }
 marathon_app(test_app)
 ```

@@ -28,7 +28,7 @@ def marathon_app(app={}, marathon_host='http://localhost:8080', marathon_user=ni
     instances: app[:num_instances] || 1,
     uris: app[:uri] || [],
     cmd: app[:command],
-    env: app[:env].nil? ? {} : Hash[app[:env].map { |e| e.split('=', 2) }],
+    env: app[:env] || {},
     cpus: app[:cpus] || 0.1,
     mem: app[:mem] || 10.0,
     constraints: (app[:constraint] || []).map { |c| c.split(':') }

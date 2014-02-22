@@ -188,6 +188,23 @@ run_list:
 [configuring marathon]: https://github.com/airbnb/marathon/blob/master/config/README.md
 [Netflix Exhibitor]: https://github.com/Netflix/exhibitor
 
+## Resources/Providers
+
+This cookbook provides a `marathon_app` LWRP to assist in running and scaling services
+via marathon.  If `instances` changes, it will be scaled on the next chef run.  Resource
+allocation changes result in a marathon stop / start.
+
+```
+test_app = {
+  id: 'test_app',
+  instances: 3,
+  cpus: 0.25,
+  mem: 125,
+  command: '/usr/local/bin/test_app -foo bar'
+}
+marathon_app(test_app)
+```
+
 ## Contributing
 
 1. Fork the repository on Github
@@ -201,6 +218,7 @@ run_list:
 
 * Author: [Ray Rodriguez](https://github.com/rayrod2030)
 * Contributor: [Mark Corwin](https://github.com/mjcdiggity)
+* Contributor: [Asher Feldman](https://github.com/asher)
 
 Copyright 2013 Medidata Solutions Worldwide
 

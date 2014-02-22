@@ -59,7 +59,7 @@ directory node['marathon']['log_dir'] do
 end
 
 remote_file "#{node['marathon']['home_dir']}/marathon.jar" do
-  source "#{node['marathon']['jar_source']}"
+  source node['marathon']['jar_source']
   mode '0755'
   not_if { ::File.exists?("#{node['marathon']['home_dir']}/marathon.jar") }
 end

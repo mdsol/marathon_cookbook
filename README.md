@@ -188,16 +188,12 @@ run_list:
 [configuring marathon]: https://github.com/airbnb/marathon/blob/master/config/README.md
 [Netflix Exhibitor]: https://github.com/Netflix/exhibitor
 
-## Contributing
+Development
+-----------
+Please see the [Contributing](CONTRIBUTING.md) Guidelines.
 
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write your change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
-
-## License and Author
+License and Author
+------------------
 
 * Author: [Ray Rodriguez](https://github.com/rayrod2030)
 * Contributor: [Mark Corwin](https://github.com/mjcdiggity)

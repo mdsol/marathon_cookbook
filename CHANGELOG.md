@@ -1,21 +1,18 @@
-## 1.0.1 / 2014-02-03
+marathon Cookbook CHANGELOG
+==========================
+This file is used to list changes made in each version of the marathon cookbook.
 
-### New features
+1.0.1 (2014-02-03)
+------------------
 
-* Add retry logic for exhibitor discover zookeepers method ([@rayrod2030][])
+- Add retry logic for exhibitor discover zookeepers method
 
-## 1.0.0 / 2014-01-27
+1.0.0 (2014-01-27)
+------------------
 
-### New features
+- Release to open source
 
-* Release to open source ([@rayrod2030][])
+0.1.0 (2013-10-09)
+------------------
 
-[@rayrod2030]: https://github.com/rayrod2030
-
-## 0.1.0 / 2013-10-09
-
-### New features
-
-* Initial cookbook commit ([@rayrod2030][])
-
-[@rayrod2030]: https://github.com/rayrod2030
+- Initial cookbook commit

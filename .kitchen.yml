@@ -12,11 +12,13 @@ driver:
 
 provisioner:
   name: chef_zero
-  require_chef_omnibus: latest
+  require_chef_omnibus: 11.10.4
   data_path: test/shared
 
 platforms:
 - name: ubuntu-12.04
+  run_list:
+    - recipe[apt]
   driver_config:
     box: opscode-ubuntu-12.04
     box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box
@@ -24,8 +26,8 @@ platforms:
 suites:
 - name: default
   run_list:
-  - recipe[apt]
-  - recipe[marathon]
+    - recipe[zookeeper-apt]
+    - recipe[marathon]
   attributes:
     marathon:
       options:

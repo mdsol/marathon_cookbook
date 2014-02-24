@@ -147,4 +147,9 @@ template "#{node['marathon']['config_dir']}/marathon.conf" do
   notifies :restart, 'runit_service[marathon]', :delayed
 end
 
+# install the marathon client gem (https://github.com/mesosphere/marathon_client)
+gem_package 'marathon_client' do
+  action :upgrade
+end
+
 runit_service 'marathon'

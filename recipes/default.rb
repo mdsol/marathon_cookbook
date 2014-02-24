@@ -148,9 +148,8 @@ template "#{node['marathon']['config_dir']}/marathon.conf" do
 end
 
 # install the marathon client gem (https://github.com/mesosphere/marathon_client)
-gem_package "marathon_client" do
+gem_package 'marathon_client' do
   action :upgrade
 end
-
 
 runit_service 'marathon'

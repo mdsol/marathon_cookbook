@@ -18,9 +18,9 @@
 
 require 'marathon'
 
-def marathon_app(app={}, marathon_host='http://localhost:8080', marathon_user=nil, marathon_pass=nil)
-  raise 'App ID required' unless app[:id]
-  raise 'Command required' unless app[:command]
+def marathon_app(app = {}, marathon_host = 'http://localhost:8080', marathon_user = nil, marathon_pass = nil)
+  fail Chef::Exceptions::AttributeNotFound, 'App ID required' unless app[:id]
+  fail Chef::Exceptions::AttributeNotFound, 'Command required' unless app[:command]
 
   marathon = Marathon::Client.new(marathon_host, marathon_user, marathon_pass)
 
@@ -31,16 +31,16 @@ def marathon_app(app={}, marathon_host='http://localhost:8080', marathon_user=ni
     env: app[:env] || {},
     cpus: app[:cpus] || 0.1,
     mem: app[:mem] || 10.0,
-    constraints: (app[:constraint] || []).map { |c| c.split(':') }
+    constraints: (app[:constraint] || []).map { |c| c.split(':') },
   }
-  app_opts[:executor] = app[:executor] unless app[:executor] == nil
-  app_opts[:ports] = app[:ports] unless app[:ports] == nil
+  app_opts[:executor] = app[:executor] unless app[:executor].nil?
+  app_opts[:ports] = app[:ports] unless app[:ports].nil?
 
   res = marathon.list
   if res.success?
     res.parsed_response.each do |running|
       if running['id'] == app[:id]
-        if running['cpus'] != app_opts[:cpus] or running['mem'] != app_opts[:mem] or\
+        if running['cpus'] != app_opts[:cpus] || running['mem'] != app_opts[:mem] || \
         running['cmd'] != app_opts[:cmd]
           Chef::Log.info("Marathon: resource allocation or cmd changed, stopping #{app[:id]}")
           res = marathon.stop(app[:id])

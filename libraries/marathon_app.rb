@@ -16,8 +16,6 @@
 # limitations under the License.
 #
 
-require 'marathon'
-
 # rubocop:disable CyclomaticComplexity
 def marathon_app(app = {}, marathon_host = 'http://localhost:8080', marathon_user = nil, marathon_pass = nil)
   fail Chef::Exceptions::AttributeNotFound, 'App ID required' unless app[:id]

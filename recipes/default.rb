@@ -16,9 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-class ::Chef::Recipe
-  include ::Marathon
-end
 
 include_recipe 'apt'
 include_recipe 'java'
@@ -59,7 +56,7 @@ directory node['marathon']['log_dir'] do
 end
 
 remote_file "#{node['marathon']['home_dir']}/marathon.jar" do
-  source "#{node['marathon']['jar_source']}"
+  source node['marathon']['jar_source']
   mode '0755'
   not_if { ::File.exists?("#{node['marathon']['home_dir']}/marathon.jar") }
 end
@@ -128,13 +125,13 @@ else
   end
 end
 
-if node.attribute?('ec2')
-  hostname = "--hostname #{node['ec2']['public_hostname']}"
-else
-  hostname = "--hostname #{node['ipaddress']}"
-end
+#if node.attribute?('ec2')
+#  hostname = "--hostname #{node['ec2']['public_hostname']}"
+#else
+#  hostname = "--hostname #{node['ipaddress']}"
+#end
 
-command_line_options_array << hostname
+#command_line_options_array << hostname
 
 template "#{node['marathon']['config_dir']}/marathon.conf" do
   source 'marathon.conf.erb'
@@ -147,9 +144,29 @@ template "#{node['marathon']['config_dir']}/marathon.conf" do
   notifies :restart, 'runit_service[marathon]', :delayed
 end
 
-# install the marathon client gem (https://github.com/mesosphere/marathon_client)
-gem_package 'marathon_client' do
-  action :upgrade
+chef_gem 'marathon_client'
+
+ruby_block 'block_until_operational' do
+  block do
+    Chef::Log.info "Waiting until Marathon is listening on port #{node['marathon']['options']['http_port']}"
+    until MarathonHelper.service_listening?(node['marathon']['options']['http_port'])
+      sleep 1
+      Chef::Log.debug('.')
+    end
+
+    Chef::Log.info 'Waiting until the Marathon API is responding'
+    test_url = URI.parse("#{node['marathon']['endpoint']}/v2/apps")
+    until MarathonHelper.endpoint_responding?(test_url)
+      sleep 1
+      Chef::Log.debug('.')
+    end
+  end
+  action :nothing
 end
 
 runit_service 'marathon'
+
+log 'ensure_marathon_is_running' do
+  notifies :start, 'runit_service[marathon]', :immediately
+  notifies :create, 'ruby_block[block_until_operational]', :immediately
+end

@@ -1,34 +1,46 @@
-default['marathon']['home_dir']                           = '/opt/marathon'
-default['marathon']['config_dir']                         = '/etc/marathon'
-default['marathon']['log_dir']                            = '/var/log/marathon'
-default['marathon']['jar_source']                         = 'https://s3.amazonaws.com/dl.imedidata.net/marathon/marathon-0.4.1-SNAPSHOT-jar-with-dependencies.jar'
-default['marathon']['user']                               = 'root'
-default['marathon']['group']                              = 'root'
-default['marathon']['java_heap']                          = "#{(node['memory']['total'].to_i - (node['memory']['total'].to_i / 2)) / 1024}m"
+default['marathon']['home_dir']                         = '/opt/marathon'
+default['marathon']['config_dir']                       = '/etc/marathon'
+default['marathon']['log_dir']                          = '/var/log/marathon'
+default['marathon']['jar_source']                       = 'https://s3.amazonaws.com/dl.imedidata.net/marathon/marathon-0.4.1-SNAPSHOT-jar-with-dependencies.jar'
+default['marathon']['user']                             = 'root'
+default['marathon']['group']                            = 'root'
+default['marathon']['java_heap']                        = "#{(node['memory']['total'].to_i - (node['memory']['total'].to_i / 2)) / 1024}m"
 
-default['marathon']['options']['checkpoint']              = nil
-default['marathon']['options']['event_subscriber']        = nil
-default['marathon']['options']['executor']                = nil
-default['marathon']['options']['failover_timeout']        = nil
-default['marathon']['options']['ha']                      = nil
-default['marathon']['options']['hostname']                = nil
-default['marathon']['options']['http_credentials']        = nil
-default['marathon']['options']['http_endpoints']          = nil
-default['marathon']['options']['http_port']               = nil
-default['marathon']['options']['https_port']              = nil
-default['marathon']['options']['local_port_max']          = nil
-default['marathon']['options']['local_port_min']          = nil
-default['marathon']['options']['log_config']              = nil
-default['marathon']['options']['master']                  = nil
-default['marathon']['options']['mesos_role']              = nil
-default['marathon']['options']['ssl_keystore_password']   = nil
-default['marathon']['options']['ssl_keystore_path']       = nil
-default['marathon']['options']['zk_state']                = nil
-default['marathon']['options']['zk_timeout']              = nil
+if node.attribute?('ec2')
+  hostname = node['ec2']['public_hostname']
+else
+  hostname = node['ipaddress']
+end
 
-default['marathon']['zookeeper_server_list']              = []
-default['marathon']['zookeeper_port']                     = 2181
-default['marathon']['zookeeper_path']                     = 'mesos'
+default['marathon']['options'].tap do |options|
+  options['checkpoint']                                 = nil
+  options['event_subscriber']                           = nil
+  options['executor']                                   = nil
+  options['failover_timeout']                           = nil
+  options['ha']                                         = nil
+  options['hostname']                                   = hostname
+  options['http_credentials']                           = nil
+  options['http_endpoints']                             = nil
+  options['http_port']                                  = 8080
+  options['https_port']                                 = nil
+  options['local_port_max']                             = nil
+  options['local_port_min']                             = nil
+  options['log_config']                                 = nil
+  options['master']                                     = nil
+  options['mesos_role']                                 = nil
+  options['ssl_keystore_password']                      = nil
+  options['ssl_keystore_path']                          = nil
+  options['zk_state']                                   = nil
+  options['zk_timeout']                                 = nil
+end
 
-default['marathon']['zookeeper_exhibitor_discovery']      = false
-default['marathon']['zookeeper_exhibitor_url']            = nil
+default['marathon']['zookeeper_server_list']            = []
+default['marathon']['zookeeper_port']                   = 2181
+default['marathon']['zookeeper_path']                   = 'mesos'
+
+default['marathon']['zookeeper_exhibitor_discovery']    = false
+default['marathon']['zookeeper_exhibitor_url']          = nil
+default['marathon']['zookeeper_exhibitor_retries']      = 5
+
+default['marathon']['process']['timeout']               = 60
+default['marathon']['endpoint']                         = "http://#{default['marathon']['options']['hostname']}:#{default['marathon']['options']['http_port']}"

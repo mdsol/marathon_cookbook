@@ -21,6 +21,7 @@ def marathon_app(app = {}, marathon_host = 'http://localhost:8080', marathon_use
   fail Chef::Exceptions::AttributeNotFound, 'App ID required' unless app[:id]
   fail Chef::Exceptions::AttributeNotFound, 'Command required' unless app[:command]
 
+  require 'marathon'
   marathon = Marathon::Client.new(marathon_host, marathon_user, marathon_pass)
 
   app_opts = {

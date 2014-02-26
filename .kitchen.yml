@@ -26,7 +26,7 @@ platforms:
 suites:
 - name: default
   run_list:
-    - recipe[zookeeper-apt]
+    - recipe[zookeeper_apt]
     - recipe[marathon]
   attributes:
     marathon:

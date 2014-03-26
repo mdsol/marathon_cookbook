@@ -26,7 +26,7 @@ def marathon_app(app = {}, marathon_host = 'http://localhost:8080', marathon_use
   marathon = Marathon::Client.new(marathon_host, marathon_user, marathon_pass)
 
   app_opts = {
-    instances: app[:num_instances] || 1,
+    instances: app[:instances] || 1,
     uris: app[:uri] || [],
     cmd: app[:command],
     env: app[:env] || {},
@@ -53,7 +53,7 @@ def marathon_app(app = {}, marathon_host = 'http://localhost:8080', marathon_use
         end
         if running['instances'] != app_opts[:instances]
           Chef::Log.info("Need to scale #{app['id']} to #{app_opts[:instances]}")
-          res = marathon.scale(app[:id], app_opts[:num_instances])
+          res = marathon.scale(app[:id], app_opts[:instances])
           Chef::Log.info(res)
           return
         end

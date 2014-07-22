@@ -128,10 +128,13 @@ else
   end
 end
 
-if node.attribute?('ec2')
-  hostname = "--hostname #{node['ec2']['public_hostname']}"
-else
-  hostname = "--hostname #{node['ipaddress']}"
+# Don't add duplicate hostname flags if the attribute is set
+if node['marathon']['options']['hostname'].nil?
+  if node.attribute?('ec2')
+    hostname = "--hostname #{node['ec2']['public_hostname']}"
+  else
+    hostname = "--hostname #{node['ipaddress']}"
+  end
 end
 
 command_line_options_array << hostname

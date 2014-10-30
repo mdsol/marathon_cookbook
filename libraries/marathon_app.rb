@@ -19,7 +19,7 @@
 Chef::Log.info('Checking if gem marathon_client 0.2.3 is installed...')
 unless `gem list marathon_client -v 0.2.3 -i`.strip == 'true'
   Chef::Log.info('Installing gem marathon_client 0.2.3...')
-  gem_install = 'gem install marathon_client -q --no-rdoc --no-ri ' +
+  gem_install = 'gem install marathon_client -q --no-rdoc --no-ri ' \
                 '-v "0.2.3" --source=http://rubygems.org'
   `#{gem_install}`
 

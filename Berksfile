@@ -1,3 +1,3 @@
-source 'https://supermarket.getchef.org'
+source 'https://supermarket.getchef.com'
 
 metadata

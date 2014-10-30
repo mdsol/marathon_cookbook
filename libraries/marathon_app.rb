@@ -16,9 +16,14 @@
 # limitations under the License.
 #
 
+# Using ::Chef::Shell
+shell_out!('gem install marathon_client -q --no-rdoc --no-ri ' \
+           "-v \"0.2.3\" --source=http://rubygems.org", env: nil)
+# Reset Gem path, which will be reloaded with newly installed gem
+Gem.clear_paths
 require 'marathon'
 
-# rubocop:disable CyclomaticComplexity
+# rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 def marathon_app(app = {}, marathon_host = 'http://localhost:8080', marathon_user = nil, marathon_pass = nil)
   fail Chef::Exceptions::AttributeNotFound, 'App ID required' unless app[:id]
   fail Chef::Exceptions::AttributeNotFound, 'Command required' unless app[:command]
@@ -67,4 +72,4 @@ def marathon_app(app = {}, marathon_host = 'http://localhost:8080', marathon_use
   res = marathon.start(app[:id], app_opts)
   Chef::Log.info(res)
 end
-# rubocop:enable CyclomaticComplexity
+# rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

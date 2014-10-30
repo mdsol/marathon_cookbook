@@ -1,15 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'berkshelf'
+gem 'berkshelf', '~> 3.0'
+gem 'chef', '~> 11.4'
 gem 'foodcritic', '~> 3.0'
-gem 'rubocop',    '~> 0.18'
+gem 'rubocop',    '~> 0.26.1'
+gem 'serverspec', '~> 2.3.1'
 gem 'stove'
-gem 'chefspec', '~> 3.1.4'
-gem 'serverspec', '~> 0.14.2'
-
-gem 'chef', '~> 11.4.2'
-gem 'json', '~> 1.7.7'
-gem 'faraday', '0.8.5'
 
 group :integration do
   gem 'test-kitchen'

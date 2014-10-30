@@ -59,9 +59,9 @@ directory node['marathon']['log_dir'] do
 end
 
 remote_file "#{node['marathon']['home_dir']}/marathon.jar" do
-  source "#{node['marathon']['jar_source']}"
+  source node['marathon']['jar_source']
   mode '0755'
-  not_if { ::File.exists?("#{node['marathon']['home_dir']}/marathon.jar") }
+  not_if { ::File.exist?("#{node['marathon']['home_dir']}/marathon.jar") }
 end
 
 command_line_options_array = []
@@ -148,11 +148,6 @@ template "#{node['marathon']['config_dir']}/marathon.conf" do
     command_line_options: command_line_options_array.join(' '),
   )
   notifies :restart, 'runit_service[marathon]', :delayed
-end
-
-# install the marathon client gem (https://github.com/mesosphere/marathon_client)
-gem_package 'marathon_client' do
-  action :upgrade
 end
 
 runit_service 'marathon'

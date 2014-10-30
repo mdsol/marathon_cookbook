@@ -3,7 +3,7 @@ require 'bundler/setup'
 namespace :style do
   require 'rubocop/rake_task'
   desc 'Run Ruby style checks'
-  Rubocop::RakeTask.new(:ruby)
+  RuboCop::RakeTask.new(:ruby)
 
   require 'foodcritic'
   desc 'Run Chef style checks'
@@ -29,4 +29,4 @@ namespace :travis do
 end
 
 # The default rake task should just run it all
-task default: ['style', 'integration']
+task default: %w(style integration)

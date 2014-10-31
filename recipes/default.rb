@@ -59,9 +59,9 @@ directory node['marathon']['log_dir'] do
 end
 
 remote_file "#{node['marathon']['home_dir']}/marathon.jar" do
-  source "#{node['marathon']['jar_source']}"
+  source node['marathon']['jar_source']
   mode '0755'
-  not_if { ::File.exists?("#{node['marathon']['home_dir']}/marathon.jar") }
+  not_if { ::File.exist?("#{node['marathon']['home_dir']}/marathon.jar") }
 end
 
 command_line_options_array = []
@@ -128,10 +128,13 @@ else
   end
 end
 
-if node.attribute?('ec2')
-  hostname = "--hostname #{node['ec2']['public_hostname']}"
-else
-  hostname = "--hostname #{node['ipaddress']}"
+# Don't add duplicate hostname flags if the attribute is set
+if node['marathon']['options']['hostname'].nil?
+  if node.attribute?('ec2')
+    hostname = "--hostname #{node['ec2']['public_hostname']}"
+  else
+    hostname = "--hostname #{node['ipaddress']}"
+  end
 end
 
 command_line_options_array << hostname

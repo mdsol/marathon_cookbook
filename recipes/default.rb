@@ -83,7 +83,7 @@ zk_server_list = []
 zk_port = nil
 zk_path = nil
 zk_master_option = nil
-zk_hosts_option = nil
+zk_option = nil
 
 if node['marathon']['zookeeper_server_list'].count > 0
   zk_server_list = node['marathon']['zookeeper_server_list']
@@ -110,15 +110,15 @@ zk_server_list.each do |zk_server|
 end
 
 if zk_url_list.count > 0
-  zk_master_option = "--master zk://#{zk_url_list.join(',')},/#{zk_path}"
-  zk_hosts_option = "--zk_hosts #{zk_url_list.join(',')}"
+  zk_master_option = "--master zk://#{zk_url_list.join(',')}/#{mesos_zk_path}"
+  zk_option = "--zk zk://#{zk_url_list.join(',')}/#{marathon_zk_path}"
 end
 
 # If we have been able to find zookeeper master endpoint and zookeeper hosts
 # then set the command line options we'll be passing to runit
-if !zk_master_option.nil? && !zk_hosts_option.nil?
+if !zk_master_option.nil? && !zk_option.nil?
   command_line_options_array << zk_master_option
-  command_line_options_array << zk_hosts_option
+  command_line_options_array << zk_option
 else
   # if we don't have a user set master or a zk configured master
   # default to local mode.

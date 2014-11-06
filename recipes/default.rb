@@ -110,8 +110,8 @@ zk_server_list.each do |zk_server|
 end
 
 if zk_url_list.count > 0
-  zk_master_option = "--master zk://#{zk_url_list.join(',')}/#{mesos_zk_path}"
-  zk_option = "--zk zk://#{zk_url_list.join(',')}/#{marathon_zk_path}"
+  zk_master_option = "--master zk://#{zk_url_list.join(',')}/#{zk_path}"
+  zk_option = "--zk zk://#{zk_url_list.join(',')}/#{zk_path}"
 end
 
 # If we have been able to find zookeeper master endpoint and zookeeper hosts

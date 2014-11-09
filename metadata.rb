@@ -15,4 +15,4 @@ end
   depends cb
 end
 
-depends 'zookeeper', '1.6.1'
+recommends 'zookeeper'

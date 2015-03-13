@@ -28,6 +28,7 @@ default['marathon']['options']['zk_timeout']              = nil
 
 default['marathon']['zookeeper_server_list']              = []
 default['marathon']['zookeeper_port']                     = 2181
+default['marathon']['zookeeper_marathon_path']            = 'mesos'
 default['marathon']['zookeeper_path']                     = 'mesos'
 
 default['marathon']['zookeeper_exhibitor_discovery']      = false

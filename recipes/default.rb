@@ -27,6 +27,7 @@ include_recipe 'mesos::install'
 
 link '/usr/lib/libmesos.so' do
   to '/usr/local/lib/libmesos.so'
+  not_if 'test -e /usr/local/lib/libmesos.so'  # prevent recursive symlinks
 end
 
 directory node['marathon']['home_dir'] do

@@ -89,6 +89,7 @@ if node['marathon']['zookeeper_server_list'].count > 0
   zk_server_list = node['marathon']['zookeeper_server_list']
   zk_port = node['marathon']['zookeeper_port']
   zk_path = node['marathon']['zookeeper_path']
+  zk_marathon_path = node['marathon']['zookeeper_marathon_path']
 end
 
 if node['marathon']['zookeeper_exhibitor_discovery'] && !node['marathon']['zookeeper_exhibitor_url'].nil?
@@ -111,7 +112,7 @@ end
 
 if zk_url_list.count > 0
   zk_master_option = "--master zk://#{zk_url_list.join(',')}/#{zk_path}"
-  zk_option = "--zk zk://#{zk_url_list.join(',')}/#{zk_path}"
+  zk_option = "--zk zk://#{zk_url_list.join(',')}/#{zk_marathon_path}"
 end
 
 # If we have been able to find zookeeper master endpoint and zookeeper hosts

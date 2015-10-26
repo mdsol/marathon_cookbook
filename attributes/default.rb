@@ -15,3 +15,11 @@ default['marathon']['jvm']['Xmx512m']     = true
 
 # Marathon command line flags
 default['marathon']['flags']['master']    = 'http://localhost'
+
+# Init system to use
+default['marathon']['init']    = case node['platform']
+                              when 'debian' then 'sysvinit_debian'
+                              when 'centos', 'redhat'
+                                if node['platform_version'].to_i >= 7 then 'systemd' end
+                              else 'upstart'
+                              end

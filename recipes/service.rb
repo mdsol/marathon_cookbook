@@ -6,13 +6,13 @@
 template 'marathon-init' do
   case node['marathon']['init']
   when 'systemd'
-    path '/usr/lib/systemd/system/mesos-slave.service'
+    path '/usr/lib/systemd/system/marathon.service'
     source 'systemd.erb'
   when 'upstart'
     path   '/etc/init/marathon.conf'
     source 'upstart.erb'
   when 'sysvinit_debian'
-    path '/etc/init.d/mesos-slave'
+    path '/etc/init.d/marathon'
     source 'sysvinit_debian.erb'
   end
   variables(wrapper: ::File.join(node['marathon']['home'], 'wrapper'))

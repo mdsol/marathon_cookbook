@@ -18,14 +18,14 @@ template 'marathon-init' do
   variables(wrapper: ::File.join(node['marathon']['home'], 'wrapper'))
 end
 
-# service 'marathon-default' do
-#   case node['marathon']['init']
-#   when 'systemd'
-#     provider Chef::Provider::Service::Systemd
-#   when 'sysvinit_debian'
-#     provider Chef::Provider::Service::Init::Debian
-#   when 'upstart'
-#     provider Chef::Provider::Service::Upstart
-#   end
-#   action [:stop, :disable]
-# end
+service 'marathon' do
+  case node['marathon']['init']
+  when 'systemd'
+    provider Chef::Provider::Service::Systemd
+  when 'sysvinit_debian'
+    provider Chef::Provider::Service::Init::Debian
+  when 'upstart'
+    provider Chef::Provider::Service::Upstart
+  end
+  # action [:stop, :disable]
+end

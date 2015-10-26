@@ -14,6 +14,7 @@ template 'marathon-init' do
   when 'sysvinit_debian'
     path '/etc/init.d/mesos-slave'
     source 'sysvinit_debian.erb'
+  end
   variables(wrapper: ::File.join(node['marathon']['home'], 'wrapper'))
 end
 

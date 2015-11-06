@@ -39,15 +39,15 @@ execute 'marathon-extract' do
   only_if { ::Dir.glob("#{node['marathon']['home']}/*#{node['marathon']['version']}").empty? }
 end
 
-jar_location = ::Dir.glob("#{node['marathon']['home']}/*#{node['marathon']['version']}/target/*/*.jar").first.to_s
-
 template 'marathon-wrapper' do
   path     ::File.join(node['marathon']['home'], 'wrapper')
   owner    'root'
   group    'root'
   mode     '0755'
   source   'wrapper.erb'
-  variables(jar:   jar_location,
-            jvm:   node['marathon']['jvm'],
-            flags: node['marathon']['flags'])
+  variables(lazy do
+    { jar:   ::Dir.glob("#{node['marathon']['home']}/*#{node['marathon']['version']}/target/*/*.jar").first.to_s,
+      jvm:   node['marathon']['jvm'],
+      flags: node['marathon']['flags'] }
+  end)
 end

@@ -1,0 +1,13 @@
+description "Zookeeper service"
+
+# Hack to start zookeeper after the network. The start 
+# signal for zookeeper is termination of the rc job.
+start on stopped rc RUNLEVEL=[2345]
+stop on shutdown
+
+respawn
+respawn limit 3 30
+
+limit nofile 8192 8192
+
+exec <%= @bin %> start-foreground

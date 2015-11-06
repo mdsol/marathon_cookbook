@@ -11,11 +11,11 @@ platforms:
 suites:
 - name: default
   run_list:
-  - recipe[zookeeper]
-  - recipe[zookeeper::service]
+  - recipe[zookeeper-service]
   - recipe[mesos::master]
   - recipe[mesos::slave]
   - recipe[marathon]
+  - recipe[marathon::service]
   attributes:
     mesos:
       version: 0.23.0

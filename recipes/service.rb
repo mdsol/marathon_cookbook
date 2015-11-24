@@ -12,6 +12,7 @@ end
 service 'marathon' do
   provider   Chef::Provider::Service::Upstart
   supports   status: true, restart: true
-  subscribes :restart, 'template[marathon-init]'
+  subscribes :stop, 'template[marathon-init]'
+  subscribes :start, 'template[marathon-init]'
   action     [:enable, :start]
 end

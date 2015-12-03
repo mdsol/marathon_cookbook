@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'berkshelf', '~> 3.0'
-gem 'chef', '~> 11.4'
-gem 'foodcritic', '~> 3.0'
-gem 'rubocop',    '~> 0.26.1'
-gem 'serverspec', '~> 2.3.1'
+gem 'berkshelf',  '~> 4.0'
+gem 'chef',       '~> 12.0'
+gem 'foodcritic', '~> 4.0'
+gem 'rubocop',    '~> 0.26'
+gem 'serverspec', '~> 2.20'
 gem 'stove'
 
 group :integration do

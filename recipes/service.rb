@@ -27,5 +27,7 @@ service 'marathon' do
   when 'upstart'
     provider Chef::Provider::Service::Upstart
   end
-  # action [:stop, :disable]
+  supports   status: true, restart: true
+  subscribes :restart, 'template[marathon-init]'
+  action     [:enable, :start]
 end

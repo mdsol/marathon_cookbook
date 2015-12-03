@@ -20,6 +20,6 @@ default['marathon']['flags']['master']    = 'http://localhost'
 default['marathon']['init']               = case node['platform']
                                             when 'debian' then 'sysvinit_debian'
                                             when 'centos', 'redhat'
-                                              if node['platform_version'].to_i >= 7 then 'systemd' end
+                                              'systemd' if node['platform_version'].to_i >= 7
                                             else 'upstart'
                                             end

@@ -13,8 +13,7 @@ end
 user node['marathon']['user'] do
   comment 'Marathon Framework User'
   gid     node['marathon']['group']
-  shell   '/bin/false'
-  system  true
+  home    node['marathon']['home']
 end
 
 directory node['marathon']['home'] do

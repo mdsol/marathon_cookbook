@@ -1,26 +1,30 @@
 driver:
   name: vagrant
-  customize:
-    cpus: 2
-    memory: 1024
+  network:
+     - ["forwarded_port", {guest: 8080, host: 8080}]
 
 provisioner:
   name: chef_zero
   require_chef_omnibus: latest
-  data_path: test/shared
 
 platforms:
-- name: ubuntu-12.04
-  driver_config:
-    box: opscode-ubuntu-12.04
-    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box
+  - name: centos-6.7
+  - name: ubuntu-14.04
 
 suites:
 - name: default
   run_list:
-  - recipe[apt]
+  - recipe[zookeeper-service]
+  - recipe[mesos::master]
+  - recipe[mesos::slave]
   - recipe[marathon]
+  - recipe[marathon::service]
   attributes:
+    mesos:
+      version: 0.25.0
     marathon:
-      options:
-        http_port: 8080
+      flags:
+        master: zk://localhost:2181/mesos
+    zookeeper:
+      version: 3.4.7
+      checksum: 2e043e04c4da82fbdb38a68e585f3317535b3842c726e0993312948afcc83870

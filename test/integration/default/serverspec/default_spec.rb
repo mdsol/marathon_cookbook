@@ -2,16 +2,7 @@ require 'serverspec'
 
 set :backend, :exec
 
-# marathon service
-describe file('/usr/local/lib/libmesos.so') do
-  it { should be_file }
-end
-
-describe file('/usr/lib/libmesos.so') do
-  it { should be_file }
-end
-
-describe file('/etc/marathon/marathon.conf') do
+describe file('/opt/marathon/wrapper') do
   it { should be_file }
 end
 

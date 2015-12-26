@@ -1,34 +1,18 @@
-default['marathon']['home_dir']                           = '/opt/marathon'
-default['marathon']['config_dir']                         = '/etc/marathon'
-default['marathon']['log_dir']                            = '/var/log/marathon'
-default['marathon']['jar_source']                         = 'https://s3.amazonaws.com/dl.imedidata.net/marathon/marathon-0.4.1-SNAPSHOT-jar-with-dependencies.jar'
-default['marathon']['user']                               = 'root'
-default['marathon']['group']                              = 'root'
-default['marathon']['java_heap']                          = "#{(node['memory']['total'].to_i - (node['memory']['total'].to_i / 2)) / 1024}m"
+default['java']['jdk_version']            = '8'
 
-default['marathon']['options']['checkpoint']              = nil
-default['marathon']['options']['event_subscriber']        = nil
-default['marathon']['options']['executor']                = nil
-default['marathon']['options']['failover_timeout']        = nil
-default['marathon']['options']['ha']                      = nil
-default['marathon']['options']['hostname']                = nil
-default['marathon']['options']['http_credentials']        = nil
-default['marathon']['options']['http_endpoints']          = nil
-default['marathon']['options']['http_port']               = nil
-default['marathon']['options']['https_port']              = nil
-default['marathon']['options']['local_port_max']          = nil
-default['marathon']['options']['local_port_min']          = nil
-default['marathon']['options']['log_config']              = nil
-default['marathon']['options']['master']                  = nil
-default['marathon']['options']['mesos_role']              = nil
-default['marathon']['options']['ssl_keystore_password']   = nil
-default['marathon']['options']['ssl_keystore_path']       = nil
-default['marathon']['options']['zk_state']                = nil
-default['marathon']['options']['zk_timeout']              = nil
+# Marathon package
+default['marathon']['version']            = '0.13.0'
+default['marathon']['source']['url']      = "http://downloads.mesosphere.com/marathon/v#{node['marathon']['version']}/marathon-#{node['marathon']['version']}.tgz"
+default['marathon']['source']['checksum'] = '224154d19679d70fb2e8e6e90c389c9542d1ece0af38be16a134e96ec587e130'
+default['marathon']['syslog']             = true
 
-default['marathon']['zookeeper_server_list']              = []
-default['marathon']['zookeeper_port']                     = 2181
-default['marathon']['zookeeper_path']                     = 'mesos'
+# Marathon user and directories
+default['marathon']['user']               = 'marathon'
+default['marathon']['group']              = 'marathon'
+default['marathon']['home']               = '/opt/marathon'
 
-default['marathon']['zookeeper_exhibitor_discovery']      = false
-default['marathon']['zookeeper_exhibitor_url']            = nil
+# JVM flags
+default['marathon']['jvm']['Xmx512m']     = true
+
+# Marathon command line flags
+default['marathon']['flags']['master']    = 'zk://localhost:2181/mesos'

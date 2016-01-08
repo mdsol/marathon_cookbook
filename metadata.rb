@@ -1,12 +1,12 @@
 name             'marathon'
-maintainer       'Medidata Solutions'
-maintainer_email 'rarodriguez@mdsol.com'
+maintainer       'Ray Rodriguez'
+maintainer_email 'rayrod2030@gmail.com'
 license          'Apache 2.0'
-description      'Installs/Configures Marathon'
+description      'Installs/Configures Apache Marathon'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '2.0.0'
+version          '2.1.0'
 
-%w( centos ).each do |os|
+%w( centos ubuntu ).each do |os|
   supports os
 end
 

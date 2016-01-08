@@ -15,7 +15,8 @@ template 'marathon-init' do
     path '/etc/init.d/marathon'
     source 'sysvinit_debian.erb'
   end
-  variables(wrapper: ::File.join(node['marathon']['home'], 'wrapper'))
+  variables(wrapper: ::File.join(node['marathon']['home'], 'wrapper'),
+            user:    node['marathon']['user'])
 end
 
 service 'marathon' do
@@ -28,6 +29,7 @@ service 'marathon' do
     provider Chef::Provider::Service::Upstart
   end
   supports   status: true, restart: true
-  subscribes :restart, 'template[marathon-init]'
+  subscribes :stop, 'template[marathon-init]'
+  subscribes :start, 'template[marathon-init]'
   action     [:enable, :start]
 end

@@ -13,8 +13,7 @@ end
 user node['marathon']['user'] do
   comment 'Marathon Framework User'
   gid     node['marathon']['group']
-  shell   '/bin/false'
-  system  true
+  home    node['marathon']['home']
 end
 
 directory node['marathon']['home'] do
@@ -46,8 +45,9 @@ template 'marathon-wrapper' do
   mode     '0755'
   source   'wrapper.erb'
   variables(lazy do
-    { jar:   ::Dir.glob("#{node['marathon']['home']}/*#{node['marathon']['version']}/target/*/*.jar").first.to_s,
-      jvm:   node['marathon']['jvm'],
-      flags: node['marathon']['flags'] }
+    { jar:    ::Dir.glob("#{node['marathon']['home']}/*#{node['marathon']['version']}/target/*/*.jar").first.to_s,
+      jvm:    node['marathon']['jvm'],
+      flags:  node['marathon']['flags'],
+      syslog: node['marathon']['syslog'] }
   end)
 end

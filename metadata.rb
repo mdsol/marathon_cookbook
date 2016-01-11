@@ -11,7 +11,7 @@ version          '2.1.0'
 end
 
 # Cookbook dependencies
-%w( java apt yum mesos ).each do |cb|
+%w( java apt yum mesos poise-service ).each do |cb|
   depends cb
 end
 

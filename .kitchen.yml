@@ -8,6 +8,7 @@ provisioner:
   require_chef_omnibus: latest
 
 platforms:
+  - name: centos-7.1
   - name: centos-6.7
   - name: ubuntu-14.04
 

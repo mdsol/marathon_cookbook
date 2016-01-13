@@ -31,5 +31,7 @@ service 'marathon' do
   supports   status: true, restart: true
   subscribes :stop, 'template[marathon-init]'
   subscribes :start, 'template[marathon-init]'
+  subscribes :stop, 'template[marathon-wrapper]'
+  subscribes :stop, 'template[marathon-wrapper]'
   action     [:enable, :start]
 end

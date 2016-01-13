@@ -3,6 +3,21 @@
 # Recipe:: service
 #
 
+service 'marathon' do
+  case node['marathon']['init']
+  when 'systemd'
+    provider Chef::Provider::Service::Systemd
+  when 'sysvinit_debian'
+    provider Chef::Provider::Service::Init::Debian
+  when 'upstart'
+    provider Chef::Provider::Service::Upstart
+  end
+  supports   status: true, restart: true
+  subscribes :stop, 'template[marathon-init]'
+  subscribes :start, 'template[marathon-init]'
+  action     [:enable, :start]
+end
+
 template 'marathon-init' do
   case node['marathon']['init']
   when 'systemd'
@@ -17,19 +32,4 @@ template 'marathon-init' do
   end
   variables(wrapper: ::File.join(node['marathon']['home'], 'wrapper'),
             user:    node['marathon']['user'])
-end
-
-service 'marathon' do
-  case node['marathon']['init']
-  when 'systemd'
-    provider Chef::Provider::Service::Systemd
-  when 'sysvinit_debian'
-    provider Chef::Provider::Service::Init::Debian
-  when 'upstart'
-    provider Chef::Provider::Service::Upstart
-  end
-  supports   status: true, restart: true
-  subscribes :stop, 'template[marathon-init]'
-  subscribes :start, 'template[marathon-init]'
-  action     [:enable, :start]
 end

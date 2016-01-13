@@ -17,7 +17,6 @@ template 'marathon-init' do
   end
   variables(wrapper: ::File.join(node['marathon']['home'], 'wrapper'),
             user:    node['marathon']['user'])
-  notifies :restart, 'service[marathon]', :immediately
 end
 
 service 'marathon' do
@@ -30,5 +29,7 @@ service 'marathon' do
     provider Chef::Provider::Service::Upstart
   end
   supports   status: true, restart: true
+  subscribes :stop, 'template[marathon-init]'
+  subscribes :start, 'template[marathon-init]'
   action     [:enable, :start]
 end

@@ -16,3 +16,11 @@ default['marathon']['jvm']['Xmx512m']     = true
 
 # Marathon command line flags
 default['marathon']['flags']['master']    = 'zk://localhost:2181/mesos'
+
+# Init system to use
+default['marathon']['init']               = case node['platform']
+                                            when 'debian' then 'sysvinit_debian'
+                                            when 'centos', 'redhat'
+                                              'systemd' if node['platform_version'].to_i >= 7
+                                            else 'upstart'
+                                            end

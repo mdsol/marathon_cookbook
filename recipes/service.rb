@@ -4,16 +4,33 @@
 #
 
 template 'marathon-init' do
-  path   '/etc/init/marathon.conf'
-  source 'upstart.erb'
+  case node['marathon']['init']
+  when 'systemd'
+    path '/usr/lib/systemd/system/marathon.service'
+    source 'systemd.erb'
+  when 'upstart'
+    path   '/etc/init/marathon.conf'
+    source 'upstart.erb'
+  when 'sysvinit_debian'
+    path '/etc/init.d/marathon'
+    source 'sysvinit_debian.erb'
+  end
   variables(wrapper: ::File.join(node['marathon']['home'], 'wrapper'),
             user:    node['marathon']['user'])
 end
 
 service 'marathon' do
-  provider   Chef::Provider::Service::Upstart
+  case node['marathon']['init']
+  when 'systemd'
+    provider Chef::Provider::Service::Systemd
+  when 'sysvinit_debian'
+    provider Chef::Provider::Service::Init::Debian
+  when 'upstart'
+    provider Chef::Provider::Service::Upstart
+  end
   supports   status: true, restart: true
   subscribes :stop, 'template[marathon-init]'
   subscribes :start, 'template[marathon-init]'
+  subscribes :restart, 'template[marathon-wrapper]'
   action     [:enable, :start]
 end

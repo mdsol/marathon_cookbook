@@ -8,6 +8,7 @@ provisioner:
   require_chef_omnibus: latest
 
 platforms:
+  - name: centos-7.1
   - name: centos-6.7
   - name: ubuntu-14.04
 
@@ -26,5 +27,5 @@ suites:
       flags:
         master: zk://localhost:2181/mesos
     zookeeper:
-      version: 3.4.7
-      checksum: 2e043e04c4da82fbdb38a68e585f3317535b3842c726e0993312948afcc83870
+      version: 3.4.6
+      checksum: 01b3938547cd620dc4c93efe07c0360411f4a66962a70500b163b59014046994

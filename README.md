@@ -37,6 +37,7 @@ Tested on
 
 * Ubuntu 14.04
 * CentOS 6.7
+* CentOS 7
 
 This cookbook includes cross-platform testing support via `test-kitchen`, see
 `TESTING.md`.

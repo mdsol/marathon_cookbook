@@ -6,20 +6,15 @@
 include_recipe 'java'
 include_recipe 'mesos'
 
-group node['marathon']['group'] do
-  system true
-end
-
-user node['marathon']['user'] do
-  comment 'Marathon Framework User'
-  gid     node['marathon']['group']
-  home    node['marathon']['home']
+poise_service_user node['marathon']['user'] do
+  group node['marathon']['group']
+  home node['marathon']['home']
 end
 
 directory node['marathon']['home'] do
   owner     node['marathon']['user']
   group     node['marathon']['group']
-  mode      00755
+  mode      '0755'
   recursive true
 end
 

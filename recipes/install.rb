@@ -22,6 +22,7 @@ pkg_location = ::File.join(Chef::Config[:file_cache_path], 'marathon.tgz')
 
 remote_file 'marathon-pkg' do
   path     pkg_location
+  mode     '0644'
   source   node['marathon']['source']['url']
   checksum node['marathon']['source']['checksum']
 end

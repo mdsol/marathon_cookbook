@@ -1,25 +1,12 @@
-AllCops:
-  Exclude:
-    - vendor/**
-    - bin/**
+### Disable line length constraint
+Metrics/LineLength:
+  Max: 120
 
-ClassAndModuleChildren:
-  Enabled: false
-ClassLength:
-  Enabled: false
-Documentation:
-  Enabled: false
-DoubleNegation:
-  Enabled: false
-Encoding:
-  Enabled: false
-LineLength:
-  Enabled: false
-MethodLength:
-  Enabled: false
-Next:
-  Enabled: false
-SingleSpaceBeforeFirstArg:
-  Enabled: false
-TrailingComma:
+### Comma after each line in a list
+Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: comma
+
+### Align hashes as a table
+Style/AlignHash:
+  EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table

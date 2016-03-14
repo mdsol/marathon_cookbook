@@ -47,3 +47,11 @@ template 'marathon-wrapper' do
       syslog: node['marathon']['syslog'] }
   end)
 end
+
+poise_service 'marathon' do
+  user node['marathon']['user']
+  command ::File.join(node['marathon']['home'], 'wrapper')
+  options :systemd, Restart: 'on-failure'
+  action [:enable, :start]
+  subscribes :restart, 'template[marathon-wrapper]'
+end

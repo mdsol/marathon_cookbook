@@ -3,17 +3,6 @@
 # Recipe:: service
 #
 
-default['marathon']['init'] = case node['platform']
-                              when 'ubuntu' then
-                                if node['platform_version'] > '14.04'
-                                  'systemd'
-                                else
-                                  'upstart'
-                                end
-                              else
-                                'upstart'
-                              end
-
 case node['marathon']['init'] 
 when 'systemd'
 

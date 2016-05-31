@@ -2,8 +2,25 @@
 Metrics/LineLength:
   Max: 120
 
-### Comma after each line in a list
-Style/TrailingCommaInLiteral:
+ClassAndModuleChildren:
+  Enabled: false
+ClassLength:
+  Enabled: false
+Documentation:
+  Enabled: false
+DoubleNegation:
+  Enabled: false
+Encoding:
+  Enabled: false
+LineLength:
+  Enabled: false
+MethodLength:
+  Enabled: false
+Next:
+  Enabled: false
+SpaceBeforeFirstArg:
+  Enabled: false
+TrailingCommaInLiteral:
   EnforcedStyleForMultiline: comma
 
 ### Align hashes as a table

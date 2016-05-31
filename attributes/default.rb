@@ -28,4 +28,3 @@ default['marathon']['init'] = case node['platform']
                               else
                                 'upstart'
                               end
-

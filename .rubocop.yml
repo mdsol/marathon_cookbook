@@ -19,7 +19,7 @@ MethodLength:
   Enabled: false
 Next:
   Enabled: false
-SingleSpaceBeforeFirstArg:
+SpaceBeforeFirstArg:
   Enabled: false
-TrailingComma:
+TrailingCommaInLiteral:
   EnforcedStyleForMultiline: comma

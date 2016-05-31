@@ -3,7 +3,7 @@
 # Recipe:: service
 #
 
-case node['marathon']['init'] 
+case node['marathon']['init']
 when 'systemd'
 
   template 'marathon-service' do
@@ -39,4 +39,3 @@ else
   end
 
 end
-

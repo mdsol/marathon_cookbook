@@ -2,9 +2,10 @@
 sudo: false
 
 # test both versions of Ruby supported by Chef client 12
+# chef-client 12.x supposedly supports ruby 2.0.0, but recent chef-zero REQUIRES 2.1.0
 rvm:
-  - 2.0.0
   - 2.1.0
+  - 2.2.0
 
 script:
   - bundle exec rake travis:ci

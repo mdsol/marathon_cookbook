@@ -17,3 +17,15 @@ default['marathon']['jvm']['Xmx512m']     = true
 
 # Marathon command line flags
 default['marathon']['flags']['master']    = 'zk://localhost:2181/mesos'
+
+default['marathon']['init'] = case node['platform']
+                              when 'ubuntu' then
+                                if node['platform_version'] > '14.04'
+                                  'systemd'
+                                else
+                                  'upstart'
+                                end
+                              else
+                                'upstart'
+                              end
+

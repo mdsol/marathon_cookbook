@@ -1,0 +1,13 @@
+[Unit]
+Description=Marathon
+After=network.target
+Wants=network.target
+
+[Service]
+EnvironmentFile=-/etc/default/marathon
+ExecStart=su - <%= @user %> -s /bin/sh -c 'exec "$0" "$@"' -- <%= @wrapper %> 
+Restart=always
+RestartSec=20
+
+[Install]
+WantedBy=multi-user.target

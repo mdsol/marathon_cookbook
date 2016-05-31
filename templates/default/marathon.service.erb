@@ -5,7 +5,7 @@ Wants=network.target
 
 [Service]
 EnvironmentFile=-/etc/default/marathon
-ExecStart=su - <%= @user %> -s /bin/sh -c 'exec "$0" "$@"' -- <%= @wrapper %> 
+ExecStart=<%= @wrapper %> 
 Restart=always
 RestartSec=20
 

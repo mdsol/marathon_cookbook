@@ -20,7 +20,6 @@ suites:
   - recipe[mesos::master]
   - recipe[mesos::slave]
   - recipe[marathon]
-  - recipe[marathon::service]
   attributes:
     mesos:
       version: 0.28.1

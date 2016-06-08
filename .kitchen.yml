@@ -2,13 +2,14 @@ driver:
   name: vagrant
   network:
      - ["forwarded_port", {guest: 8080, host: 8080}]
+     - ["forwarded_port", {guest: 5050, host: 5050}]
 
 provisioner:
   name: chef_zero
   require_chef_omnibus: latest
 
 platforms:
-  - name: centos-7.1
+  - name: centos-7.2
   - name: centos-6.7
   - name: ubuntu-14.04
 
@@ -22,10 +23,11 @@ suites:
   - recipe[marathon::service]
   attributes:
     mesos:
-      version: 0.25.0
+      version: 0.28.1
     marathon:
       flags:
-        master: zk://localhost:2181/mesos
+        master: localhost:5050
     zookeeper:
-      version: 3.4.6
-      checksum: 01b3938547cd620dc4c93efe07c0360411f4a66962a70500b163b59014046994
+      version:  3.4.8
+      mirror:   http://archive.apache.org/dist/zookeeper
+      checksum: f10a0b51f45c4f64c1fe69ef713abf9eb9571bc7385a82da892e83bb6c965e90

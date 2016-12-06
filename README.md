@@ -28,19 +28,21 @@ The following cookbooks are dependencies:
 The following cookbooks are recommended:
 * zookeeper
 
-Newer versions of marathon will support the --disable-ha option, so the
-service will not depend on zookeeper.
+This cookbook is tested by running Marathon without ZooKeeper support, however
+it is currently not recommended to run it in this way in production. Please use
+a wrapper cookbook to set up a ZooKeeper + Mesos + Marathon stack in your
+environment.
 
 ## Platform:
 
 Tested on
 
+* Ubuntu 16.04
 * Ubuntu 14.04
-* CentOS 6.7
-* CentOS 7
+* CentOS 7.2
+* CentOS 6.8
 
-This cookbook includes cross-platform testing support via `test-kitchen`, see
-`TESTING.md`.
+This cookbook includes cross-platform testing support via `test-kitchen`.
 
 
 Attributes
@@ -60,12 +62,14 @@ Attributes
 * `node['marathon']['flags']['master']` - The URL of the Mesos master. Default: 'zk://localhost:2181/mesos'.
 
 Note: Both the ['jvm'] and ['flags'] node support dynamic generation of all JVM
-and Marathon command line flags. Please read the [the wrapper template](templates/default/wrapper.erb)
+and Marathon command line flags. Please read the 
+[the wrapper template](templates/default/wrapper.erb)
 to see how these are generated.
 
 Development
 -----------
-Please see the [Contributing](CONTRIBUTING.md) and [Issue Reporting](ISSUES.md) Guidelines.
+Please see the [Contributing](CONTRIBUTING.md) and
+[Issue Reporting](ISSUES.md) Guidelines.
 
 ## License and Author
 

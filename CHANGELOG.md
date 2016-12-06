@@ -2,7 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased][unreleased]
+## [2.2.0] - 2016-12-06
+
+### Changed
+- Use poise_service
+- Default installed Marathon version is now 1.3.5
+- Test without installing ZooKeeper
+
+### Bug fixes
+- Correct system umask
 
 ## [2.1.0] - 2015-12-26
 
@@ -37,7 +45,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 - Initial cookbook commit
 
-[unreleased]: https://github.com/mdsol/marathon_cookbook/compare/2.1.0...HEAD
+[2.2.0]: https://github.com/mdsol/marathon_cookbook/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/mdsol/marathon_cookbook/compare/1.0.2...2.1.0
 [1.0.2]: https://github.com/mdsol/marathon_cookbook/compare/1.0.1...1.0.2
 [1.0.1]: https://github.com/mdsol/marathon_cookbook/compare/1.0.0...1.0.1

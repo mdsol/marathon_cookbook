@@ -1,8 +1,10 @@
+---
 driver:
   name: vagrant
+  customize: {cpus: 2, memory: 1024}
   network:
-     - ["forwarded_port", {guest: 8080, host: 8080}]
-     - ["forwarded_port", {guest: 5050, host: 5050}]
+    - ["forwarded_port", {guest: 8080, host: 8080}]
+    - ["forwarded_port", {guest: 5050, host: 5050}]
 
 provisioner:
   name: chef_zero
@@ -10,24 +12,19 @@ provisioner:
 
 platforms:
   - name: centos-7.2
-  - name: centos-6.7
+  - name: centos-6.8
+  - name: ubuntu-16.04
   - name: ubuntu-14.04
-
 suites:
-- name: default
-  run_list:
-  - recipe[zookeeper-service]
-  - recipe[mesos::master]
-  - recipe[mesos::slave]
-  - recipe[marathon]
-  - recipe[marathon::service]
-  attributes:
-    mesos:
-      version: 0.28.1
-    marathon:
-      flags:
-        master: localhost:5050
-    zookeeper:
-      version:  3.4.8
-      mirror:   http://archive.apache.org/dist/zookeeper
-      checksum: f10a0b51f45c4f64c1fe69ef713abf9eb9571bc7385a82da892e83bb6c965e90
+  - name: default
+    run_list:
+      - recipe[mesos::master]
+      - recipe[mesos::slave]
+      - recipe[marathon]
+      - recipe[marathon::service]
+    attributes:
+      marathon:
+        flags:  # run Marathon without ZooKeeper
+          ha: false
+          master: 'localhost:5050'
+          internal_store_backend: 'mem'

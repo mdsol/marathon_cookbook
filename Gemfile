@@ -1,15 +1,23 @@
 source 'https://rubygems.org'
 
-gem 'berkshelf',  '~> 4.0'
-gem 'chef',       '~> 12.0'
-gem 'foodcritic', '~> 4.0'
-gem 'rubocop',    '~> 0.26'
-gem 'serverspec', '~> 2.20'
-gem 'stove'
+gem 'berkshelf'
+gem 'chefspec'
+gem 'rubocop'
+gem 'serverspec'
+
+gem 'chef', '~> 12.0'
+# remove once we decide to drop support
+# for Chef < 12.14.60 and Ruby < 2.3.1
+if RUBY_VERSION < '2.2.0'
+  gem 'buff-extensions', '< 2.0.0'
+  gem 'fauxhai', '< 3.10.0'
+  gem 'foodcritic', '< 8.0.0'
+else
+  gem 'foodcritic' # rubocop:disable Bundler/DuplicatedGem
+end
 
 group :integration do
-  gem 'test-kitchen'
-  gem 'kitchen-vagrant'
-  gem 'kitchen-docker'
   gem 'kitchen-ec2'
+  gem 'kitchen-vagrant'
+  gem 'test-kitchen'
 end

@@ -1,10 +1,5 @@
-# use container-based infrastructure
-sudo: false
-
-# test both versions of Ruby supported by Chef client 12
 rvm:
   - 2.1.0
-  - 2.2.0
-
+  - 2.3.1
 script:
   - bundle exec rake travis:ci

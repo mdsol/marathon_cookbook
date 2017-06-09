@@ -6,4 +6,5 @@
 poise_service 'marathon' do
   user node['marathon']['user']
   command ::File.join(node['marathon']['home'], 'wrapper')
+  environment node['marathon']['env']
 end

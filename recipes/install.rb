@@ -43,6 +43,7 @@ template 'marathon-wrapper' do
   variables(lazy do
     { jar:    ::Dir.glob("#{node['marathon']['home']}/*#{node['marathon']['version']}/target/*/*.jar").first.to_s,
       jvm:    node['marathon']['jvm'],
+      env:    node['marathon']['env'],
       flags:  node['marathon']['flags'],
       syslog: node['marathon']['syslog'] }
   end)
